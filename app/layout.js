@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "./_components/NavBar";
+import MoviesFetcher from "./_components/MoviesFetcher";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,11 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`layout ${inter.className} bg-slate-300`}>
-        {/* <NavBar /> */}
-
-
         {children}
-
       </body>
     </html>
   );
