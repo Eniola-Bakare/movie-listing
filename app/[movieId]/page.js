@@ -1,12 +1,12 @@
 import EachMovDetails from "./EachMovDetails";
 
 function page() {
-    console.log('got in hereee') 
+ 
   return (
-    <div>
-      detailssss
+    <section className="w-full p-5">
+    
       <EachMovDetails />
-    </div>
+    </section>
   );
 }
 
