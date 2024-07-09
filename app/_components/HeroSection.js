@@ -26,6 +26,8 @@ export default function HeroSection({ currentPage }) {
   const [pageNo, setPageNo] = useState(1);
   const targetRef = useRef(null);
 
+  const [searchQuery, setSearchQuery] = useState("");
+
   useEffect(() => {
     const options = {
       method: "GET",
@@ -35,25 +37,31 @@ export default function HeroSection({ currentPage }) {
           "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNTgzYmExZTcxMGFjZTNhNGIzZTEwNjdiZGVlODI4MyIsIm5iZiI6MTcyMDQ1MDQzNy45NjcyODgsInN1YiI6IjY2OGJmYzM1NjA5NzIzYmZkYmVhZWJlYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.7_VsAuXZdw-6WW4frlZzelsqDQIpA5nI_GTjbrOU4YU",
       },
     };
-    async function fetcher() {
-      const fetched = await fetch(
-        `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${pageNo}&sort_by=popularity.desc`,
-        options
-      );
+    async function fetcherFunc() {
+      let fetched;
+      if (searchQuery && searchQuery.length >= 2) {
+        fetched = await fetch(
+          `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&include_adult=false&language=en-US&page=${pageNo}`,
+          options
+        );
+      } else {
+        fetched = await fetch(
+          `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${pageNo}&sort_by=popularity.desc`,
+          options
+        );
+      }
       let response;
       let movieData;
       try {
         response = await fetched.json();
         movieData = response.results;
-        setMovieList(movieData);
-        console.log(movieData);
+        return setMovieList(movieData);
       } catch (error) {
         console.log(error);
       }
     }
-
-    fetcher();
-  }, [pageNo]);
+    fetcherFunc();
+  }, [pageNo, searchQuery]);
 
   useEffect(() => {
     const slideInterval = setInterval(() => {
@@ -114,6 +122,7 @@ export default function HeroSection({ currentPage }) {
       >
         <input
           placeholder="search for a movie"
+          onChange={(e) => setSearchQuery(e.target.value)}
           className="w-[30%] mt-5 p-3 pl-6 rounded-3xl focus:outline-blue-500 text-gray-500"
         />
         <AllMoviesFetched movieList={movieList} />
