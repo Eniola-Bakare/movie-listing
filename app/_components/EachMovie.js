@@ -11,7 +11,7 @@ export default function EachMovie({ eachMovie }) {
   return (
     <div
       key={eachMovie?.id}
-      className="w-fit flex flex-col h-[600px] rounded-b-3xl hover:size-72 transition-transform ease-in-out cursor-pointer"
+      className="w-full flex flex-col rounded-b-3xl hover:scale-95 transition-transform ease-in-out cursor-pointer"
       onClick={handleEachMovie}
     >
       <Image
@@ -19,10 +19,10 @@ export default function EachMovie({ eachMovie }) {
         width={300}
         height={100}
         src={`https://image.tmdb.org/t/p/w500${eachMovie?.poster_path}`}
-        className="rounded-t-3xl"
+        className="rounded-t-3xl w-full object-cover"
       />
 
-      <div className=" w-full h-full p-3 bg-white/50 shadow-lg shadow-cyan-900/20">
+      <div className=" w- h-[150px] p-3 bg-white/50 shadow-lg shadow-cyan-900/20">
         <span className=" font-medium text-lg text-blue-900 ">Title: </span>
         <p className=" text-wrap text-gray-900 text-lg font-semibold">
           {eachMovie.title}
