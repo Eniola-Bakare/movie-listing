@@ -9,7 +9,6 @@ import heroFour from "/@app/../public/heroImage4.jpg";
 import heroFive from "/@app/../public/heroImage5.jpg";
 import { useEffect, useRef, useState } from "react";
 import AllMoviesFetched from "./AllMoviesFetched";
-import { useRouter } from "next/router";
 import PageBtns from "./PageBtns";
 
 export default function HeroSection({ currentPage }) {
@@ -26,7 +25,6 @@ export default function HeroSection({ currentPage }) {
   const [movieList, setMovieList] = useState([]);
   const [pageNo, setPageNo] = useState(1);
   const targetRef = useRef(null);
-  // const router = useRouter();
 
   useEffect(() => {
     const options = {
@@ -48,7 +46,6 @@ export default function HeroSection({ currentPage }) {
         response = await fetched.json();
         movieData = response.results;
         setMovieList(movieData);
-        console.log(movieData);
       } catch (error) {
         console.log(error);
       }
@@ -85,13 +82,13 @@ export default function HeroSection({ currentPage }) {
   }
 
   return (
-    <>
-      <div className=" h-dvh overflow-hidden">
-        <div className="absolute top-10 z-10 left-10">
+    <section className="w-full flex flex-col items-center text-gray-50 m-auto ">
+      <section className=" h-dvh overflow-hidden">
+        {/* <div className="absolute top-10 z-10 left-10">
           <NavBar />
-        </div>{" "}
+        </div> */}
         <div
-          className={`flex flex-col w-full bg-blue-500 `}
+          className="flex flex-col w-full bg-blue-500 "
           onClick={handleScroll}
         >
           <Image
@@ -108,12 +105,19 @@ export default function HeroSection({ currentPage }) {
             </svg>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div ref={targetRef} className="h-dvh flex flex-wrap">
+      <section
+        ref={targetRef}
+        className="h-dvh flex flex-col items-center gap-5 p-5"
+      >
+        <input
+          placeholder="search for a movie"
+          className="w-[30%] mt-5 p-3 pl-6 rounded-3xl focus:outline-blue-500 text-gray-500"
+        />
         <AllMoviesFetched movieList={movieList} />
-        <PageBtns setPageNo={setPageNo} />
-      </div>
-    </>
+        <PageBtns setPageNo={setPageNo} pageNo={pageNo} />
+      </section>
+    </section>
   );
 }

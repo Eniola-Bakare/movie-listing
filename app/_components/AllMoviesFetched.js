@@ -1,18 +1,10 @@
-import Image from "next/image";
+import EachMovie from "./EachMovie";
 
-export default function AllMoviesFetched({movieList}) {
+export default function AllMoviesFetched({ movieList }) {
   return (
-    <div className=" flex flex-wrap">
+    <div className=" grid 2xl:grid-cols-6 gap-5 p-5">
       {movieList?.map((eachMovie) => (
-        <div key={eachMovie?.id}>
-          <Image
-            alt="movie poster"
-            width={300}
-            height={100}
-            src={`https://image.tmdb.org/t/p/w500${eachMovie?.poster_path}`}
-          />
-          <p key={eachMovie.id}>{eachMovie.title}</p>
-        </div>
+        <EachMovie key={eachMovie?.id} eachMovie={eachMovie} />
       ))}
     </div>
   );
