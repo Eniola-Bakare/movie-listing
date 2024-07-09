@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import NavBar from "./NavBar";
 import heroOne from "/@app/../public/heroImage1.jpg";
@@ -8,8 +9,10 @@ import heroFour from "/@app/../public/heroImage4.jpg";
 import heroFive from "/@app/../public/heroImage5.jpg";
 import { useEffect, useRef, useState } from "react";
 import AllMoviesFetched from "./AllMoviesFetched";
+import { useRouter } from "next/router";
+import PageBtns from "./PageBtns";
 
-export default function HeroSection({ movieList }) {
+export default function HeroSection({ currentPage }) {
   const [heroImage, setHeroImage] = useState([
     heroOne,
     heroTwo,
@@ -19,13 +22,42 @@ export default function HeroSection({ movieList }) {
   ]);
   const [slideNo, setSlideNo] = useState(0);
   const [curSlide, setCurSlide] = useState(heroOne);
+
+  const [movieList, setMovieList] = useState([]);
+  const [pageNo, setPageNo] = useState(1);
   const targetRef = useRef(null);
+  // const router = useRouter();
 
   useEffect(() => {
-    // first;
-    // set an interval
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNTgzYmExZTcxMGFjZTNhNGIzZTEwNjdiZGVlODI4MyIsIm5iZiI6MTcyMDQ1MDQzNy45NjcyODgsInN1YiI6IjY2OGJmYzM1NjA5NzIzYmZkYmVhZWJlYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.7_VsAuXZdw-6WW4frlZzelsqDQIpA5nI_GTjbrOU4YU",
+      },
+    };
+    async function fetcher() {
+      const fetched = await fetch(
+        `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${pageNo}&sort_by=popularity.desc`,
+        options
+      );
+      let response;
+      let movieData;
+      try {
+        response = await fetched.json();
+        movieData = response.results;
+        setMovieList(movieData);
+        console.log(movieData);
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
-    console.log("first");
+    fetcher();
+  }, [pageNo]);
+
+  useEffect(() => {
     const slideInterval = setInterval(() => {
       if (slideNo >= heroImage.length - 1) {
         setCurSlide(heroImage[0]);
@@ -79,14 +111,21 @@ export default function HeroSection({ movieList }) {
       </div>
 
       <div ref={targetRef} className="h-dvh flex flex-wrap">
-        {movieList.map((eachMovie) => (
-          <div key={eachMovie?.id}>
-            <p key={eachMovie.id}>{eachMovie.title}</p>
-            <img alt="movie poster" width={300} height={100}
-              src={`https://image.tmdb.org/t/p/w500${eachMovie?.poster_path}`}
-            />
-          </div>
-        ))}
+        <div className=" flex flex-wrap">
+          {movieList?.map((eachMovie) => (
+            <div key={eachMovie?.id}>
+              <img
+                alt="movie poster"
+                width={300}
+                height={100}
+                src={`https://image.tmdb.org/t/p/w500${eachMovie?.poster_path}`}
+              />
+              <p key={eachMovie.id}>{eachMovie.title}</p>
+            </div>
+          ))}
+        </div>
+
+        <PageBtns setPageNo={setPageNo} />
       </div>
     </>
   );
