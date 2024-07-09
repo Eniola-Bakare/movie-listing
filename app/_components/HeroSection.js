@@ -111,20 +111,7 @@ export default function HeroSection({ currentPage }) {
       </div>
 
       <div ref={targetRef} className="h-dvh flex flex-wrap">
-        <div className=" flex flex-wrap">
-          {movieList?.map((eachMovie) => (
-            <div key={eachMovie?.id}>
-              <img
-                alt="movie poster"
-                width={300}
-                height={100}
-                src={`https://image.tmdb.org/t/p/w500${eachMovie?.poster_path}`}
-              />
-              <p key={eachMovie.id}>{eachMovie.title}</p>
-            </div>
-          ))}
-        </div>
-
+        <AllMoviesFetched movieList={movieList} />
         <PageBtns setPageNo={setPageNo} />
       </div>
     </>
