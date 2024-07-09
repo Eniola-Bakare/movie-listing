@@ -1,10 +1,14 @@
 import Image from "next/image";
 
 export default function EachMovie({ eachMovie }) {
+  function handleEachMovie() {
+    console.log("handleEach");
+  }
   return (
     <div
       key={eachMovie?.id}
       className=" flex flex-col h-[600px] rounded-b-3xl hover:size-72 transition-transform ease-in-out cursor-pointer"
+      onClick={handleEachMovie}
     >
       <Image
         alt="movie poster"
