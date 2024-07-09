@@ -1,13 +1,17 @@
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function EachMovie({ eachMovie }) {
-  function handleEachMovie() {
-    console.log("handleEach");
-  }
+  const router = useRouter();
+
+  const handleEachMovie = () => {
+    localStorage.setItem("selectedMovie", JSON.stringify(eachMovie));
+    router.push(`/${eachMovie?.id}`);
+  };
   return (
     <div
       key={eachMovie?.id}
-      className=" flex flex-col h-[600px] rounded-b-3xl hover:size-72 transition-transform ease-in-out cursor-pointer"
+      className="w-fit flex flex-col h-[600px] rounded-b-3xl hover:size-72 transition-transform ease-in-out cursor-pointer"
       onClick={handleEachMovie}
     >
       <Image
@@ -18,7 +22,7 @@ export default function EachMovie({ eachMovie }) {
         className="rounded-t-3xl"
       />
 
-      <div className="h-full p-3 bg-white/50">
+      <div className=" w-full h-full p-3 bg-white/50 shadow-lg shadow-cyan-900/20">
         <span className=" font-medium text-lg text-blue-900 ">Title: </span>
         <p className=" text-wrap text-gray-900 text-lg font-semibold">
           {eachMovie.title}

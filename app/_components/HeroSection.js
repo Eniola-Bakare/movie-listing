@@ -46,6 +46,7 @@ export default function HeroSection({ currentPage }) {
         response = await fetched.json();
         movieData = response.results;
         setMovieList(movieData);
+        console.log(movieData);
       } catch (error) {
         console.log(error);
       }
@@ -109,7 +110,7 @@ export default function HeroSection({ currentPage }) {
 
       <section
         ref={targetRef}
-        className="h-dvh flex flex-col items-center gap-5 p-5"
+        className="w-full h-dvh flex flex-col items-center gap-5 p-5"
       >
         <input
           placeholder="search for a movie"
