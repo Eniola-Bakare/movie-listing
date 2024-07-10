@@ -49,6 +49,7 @@ function AppContextProvider({ children }) {
       try {
         response = await fetched.json();
         movieData = response.results;
+        console.log(movieData);
         return setMovieList(movieData);
       } catch (error) {
         console.log(error);
