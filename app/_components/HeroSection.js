@@ -1,10 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import NavBar from "./NavBar";
-import heroOne from "/@app/../public/heroImage1.jpg";
-import heroFour from "/@app/../public/heroImage4.jpg";
-import heroFive from "/@app/../public/heroImage5.jpg";
+
+import heroPortrait from "/@app/../public/heroPortrait1.jpg";
 import { useEffect, useRef, useState } from "react";
 import AllMoviesFetched from "./AllMoviesFetched";
 import PageBtns from "./PageBtns";
@@ -17,11 +15,13 @@ export default function HeroSection({ currentPage }) {
 
   // Local state
   const [heroImage, setHeroImage] = useState([
-    heroOne,
-    heroFour,
-    heroFive,
+    'url("/heroPortrait1.jpg")',
+    'url("/heroImage7.jpg")',
+    'url("/heroImage5.jpg")',
+    'url("/heroImage3.jpg")',
+    'url("/heroImage6.jpg")',
   ]);
-  const [curSlide, setCurSlide] = useState(heroOne);
+  const [curSlide, setCurSlide] = useState(heroPortrait);
   const [slideNo, setSlideNo] = useState(0);
 
   // Hero section slider
@@ -47,7 +47,8 @@ export default function HeroSection({ currentPage }) {
   }, [heroImage, slideNo]);
 
   //scroll function from hero section to movie list
-  function handleScroll() {
+  function handleScroll(e) {
+    e.stopPropagation();
     if (targetRef.current) {
       targetRef.current.scrollIntoView({ behavior: "smooth" });
     }
@@ -61,27 +62,33 @@ export default function HeroSection({ currentPage }) {
 
   return (
     <section className="w-full flex flex-col items-center text-gray-50 m-auto ">
-      <section className=" lg:h-[50dvh] xl:h-dvh overflow-hidden">
+      <section className="w-full h-dvh overflow-hidden">
         {/* <div className="absolute top-10 z-10 left-10">
           <NavBar />
         </div> */}
         <div
-          className="flex flex-col w-full bg-blue-500 "
-          onClick={handleScroll}
+          className={`relative flex flex-col justify-center items-center w-full h-dvh  bg-cover bg-center `}
+          style={{ backgroundImage: curSlide }}
         >
-          <Image
-            src={curSlide || heroOne}
-            alt="a woman watching a movie"
-            className="w-full relative "
-            style={{ objectFit: "cover", objectPosition: "center" }}
-          />
-          <div class="absolute w-max top-[15%] left-[35%] sm:top-1/4 md:top-52 lg:top-1/3 xl:top-1/3 2xl:top-2/4 sm:left-[45%] xl:left-1/2 xl:right-1/2 hover:scale-50 animate-bounce cursor-pointer">
-            <h4 className="w-fit">Scroll down</h4>
-            <svg className="arrows mb-5">
-              <path class="a1" d="M0 0 L30 32 L60 0"></path>
-              <path class="a2" d="M0 20 L30 52 L60 20"></path>
-              <path class="a3" d="M0 40 L30 72 L60 40"></path>
-            </svg>
+          <div className="mt-[100%] lg:mt-[70%] xl:mt-[60%] cursor-pointer flex flex-col text-center items-center justify-center">
+            <p className="text-wrap text-center text-base md:text-2xl lg:text-2xl font-semibold shadow-md shadow-blue-950 p-3 w-[80%] sm:w-[60%] mb-24 bg-blue-950/45">
+              Welcome to the captivating world of the Movie Lounge. Taking you
+              on your journey of entertainment!
+            </p>
+            <h1
+              className=" z-40 animate-bounce"
+              onClick={(e) => handleScroll(e)}
+            >
+              <svg
+                className="animate-bounce arrows "
+                onClick={(e) => handleScroll(e)}
+              >
+                <path class="a1" d="M0 0 L30 32 L60 0"></path>
+                <path class="a2" d="M0 20 L30 52 L60 20"></path>
+                <path class="a3" d="M0 40 L30 72 L60 40"></path>
+              </svg>
+              Scroll down
+            </h1>
           </div>
         </div>
       </section>
