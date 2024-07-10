@@ -1,9 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
-import Loading from "../Loading";
+import Loading from "../loading";
 import Image from "next/image";
-import { useAppContext } from "../AppContext";
-import { useEffect } from "react";
 
 function EachMovDetails() {
   const router = useRouter();
@@ -11,11 +9,8 @@ function EachMovDetails() {
 
   const handleBack = () => {
     router.back();
+    localStorage.removeItem("selectedMovie");
   };
-
-  if (!selectedMovie) {
-    return <Loading />;
-  }
 
   return (
     <section className="w-full h-dvh flex flex-col justify-start p-6 md:p-12 gap-6 sm:gap-3 md:gap-16  ">
