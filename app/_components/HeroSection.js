@@ -3,8 +3,6 @@
 import Image from "next/image";
 import NavBar from "./NavBar";
 import heroOne from "/@app/../public/heroImage1.jpg";
-import heroTwo from "/@app/../public/heroImage2.jpg";
-import heroThree from "/@app/../public/heroImage3.jpg";
 import heroFour from "/@app/../public/heroImage4.jpg";
 import heroFive from "/@app/../public/heroImage5.jpg";
 import { useEffect, useRef, useState } from "react";
@@ -20,8 +18,6 @@ export default function HeroSection({ currentPage }) {
   // Local state
   const [heroImage, setHeroImage] = useState([
     heroOne,
-    heroTwo,
-    heroThree,
     heroFour,
     heroFive,
   ]);
@@ -65,7 +61,7 @@ export default function HeroSection({ currentPage }) {
 
   return (
     <section className="w-full flex flex-col items-center text-gray-50 m-auto ">
-      <section className=" lg:h-[50dvh] overflow-hidden">
+      <section className=" lg:h-[50dvh] xl:h-dvh overflow-hidden">
         {/* <div className="absolute top-10 z-10 left-10">
           <NavBar />
         </div> */}
@@ -76,9 +72,10 @@ export default function HeroSection({ currentPage }) {
           <Image
             src={curSlide || heroOne}
             alt="a woman watching a movie"
-            className="w-full relative 2xl:object-cover"
+            className="w-full relative "
+            style={{ objectFit: "cover", objectPosition: "center" }}
           />
-          <div class="absolute w-max top-[15%] left-[35%] sm:top-1/4 md:top-52 lg:top-1/3 2xl:top-1/4 xl:top-1/3 sm:left-[45%] xl:left-1/2 xl:right-1/2 hover:scale-50 animate-bounce cursor-pointer">
+          <div class="absolute w-max top-[15%] left-[35%] sm:top-1/4 md:top-52 lg:top-1/3 xl:top-1/3 2xl:top-2/4 sm:left-[45%] xl:left-1/2 xl:right-1/2 hover:scale-50 animate-bounce cursor-pointer">
             <h4 className="w-fit">Scroll down</h4>
             <svg className="arrows mb-5">
               <path class="a1" d="M0 0 L30 32 L60 0"></path>

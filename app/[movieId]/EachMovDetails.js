@@ -18,13 +18,13 @@ function EachMovDetails() {
   }
 
   return (
-    <section className="w-full h-dvh flex flex-col justify-center p-16  ">
+    <section className="w-full h-dvh flex flex-col justify-start p-6 md:p-12 gap-6 sm:gap-3 md:gap-16  ">
       <button
-        className="back_btn w-fit mb-16 flex items-center gap-4 hover:scale-90 ease-in-out transition-all"
+        className="back_btn w-fit flex items-center gap-4 hover:scale-90 ease-in-out transition-all"
         onClick={handleBack}
       >
         <svg
-          className="svg-icon w-[80px] fill-blue-900"
+          className="svg-icon w-[40px] fill-blue-900"
           viewBox="0 0 1024 1024"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
@@ -34,18 +34,18 @@ function EachMovDetails() {
         <span className="font-bold text-blue-900"> Go back</span>{" "}
       </button>
 
-      <div className="w-fit selected_movie_details flex justify-start items-center self-end  gap-x-10">
+      <div className="w-fit selected_movie_details flex flex-col md:flex-row justify-start md:items-center gap-8 lg:gap-x-10">
         <Image
           alt="movie poster"
           width={500}
           height={100}
           src={`https://image.tmdb.org/t/p/w500${selectedMovie?.poster_path}`}
-          className="rounded-lg"
+          className="rounded-lg w-2/4 sm:w-2/5 lg:w-[20%]"
         />
 
-        <div className="s_text_detail w-[40%] flex flex-col gap-4">
+        <div className="s_text_detail w-[95%] lg:w-[50%] flex flex-col items-start text-justify gap-4">
           <h1 className="text-blue-900">{selectedMovie.title}</h1>
-          <p className="text-lg font-medium text-gray-700">
+          <p className="2xl:text-xl font-medium text-gray-700">
             <span className="font-semibold"> Brief description:</span>{" "}
             {selectedMovie.overview}
           </p>
