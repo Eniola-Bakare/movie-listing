@@ -1,10 +1,15 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useAppContext } from "../AppContext";
 
 export default function EachMovie({ eachMovie }) {
   const router = useRouter();
+  const { movieList, pageNo } = useAppContext();
 
   const handleEachMovie = () => {
+    console.log(movieList, pageNo);
+    localStorage.setItem("movieList", JSON.stringify(movieList));
+    localStorage.setItem("pageNo", JSON.stringify(pageNo));
     localStorage.setItem("selectedMovie", JSON.stringify(eachMovie));
     router.push(`/${eachMovie?.id}`);
   };

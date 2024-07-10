@@ -2,18 +2,19 @@
 import { useRouter } from "next/navigation";
 import Loading from "../Loading";
 import Image from "next/image";
+import { useAppContext } from "../AppContext";
 
 function EachMovDetails() {
+  const { pageNo, targetRef } = useAppContext();
   const router = useRouter();
   const selectedMovie = JSON.parse(localStorage.getItem("selectedMovie"));
-  console.log(selectedMovie);
 
   const handleBack = () => {
     router.back();
   };
   if (!selectedMovie) {
-    <Loading />;
-    return;
+    console.log("loadingggggggggggggggggggg");
+    return <Loading />;
   }
 
   return (

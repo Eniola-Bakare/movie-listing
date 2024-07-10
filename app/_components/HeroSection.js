@@ -10,8 +10,14 @@ import heroFive from "/@app/../public/heroImage5.jpg";
 import { useEffect, useRef, useState } from "react";
 import AllMoviesFetched from "./AllMoviesFetched";
 import PageBtns from "./PageBtns";
+import { useAppContext } from "../AppContext";
 
 export default function HeroSection({ currentPage }) {
+  // ContextAPI state
+  const { pageNo, movieList, setSearchQuery, targetRef, setPageNo } =
+    useAppContext();
+
+  // Local state
   const [heroImage, setHeroImage] = useState([
     heroOne,
     heroTwo,
@@ -19,50 +25,10 @@ export default function HeroSection({ currentPage }) {
     heroFour,
     heroFive,
   ]);
-  const [slideNo, setSlideNo] = useState(0);
   const [curSlide, setCurSlide] = useState(heroOne);
+  const [slideNo, setSlideNo] = useState(0);
 
-  const [movieList, setMovieList] = useState([]);
-  const [pageNo, setPageNo] = useState(1);
-  const targetRef = useRef(null);
-
-  const [searchQuery, setSearchQuery] = useState("");
-
-  useEffect(() => {
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNTgzYmExZTcxMGFjZTNhNGIzZTEwNjdiZGVlODI4MyIsIm5iZiI6MTcyMDQ1MDQzNy45NjcyODgsInN1YiI6IjY2OGJmYzM1NjA5NzIzYmZkYmVhZWJlYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.7_VsAuXZdw-6WW4frlZzelsqDQIpA5nI_GTjbrOU4YU",
-      },
-    };
-    async function fetcherFunc() {
-      let fetched;
-      if (searchQuery && searchQuery.length >= 2) {
-        fetched = await fetch(
-          `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&include_adult=false&language=en-US&page=${pageNo}`,
-          options
-        );
-      } else {
-        fetched = await fetch(
-          `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${pageNo}&sort_by=popularity.desc`,
-          options
-        );
-      }
-      let response;
-      let movieData;
-      try {
-        response = await fetched.json();
-        movieData = response.results;
-        return setMovieList(movieData);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetcherFunc();
-  }, [pageNo, searchQuery]);
-
+  // Hero section slider
   useEffect(() => {
     const slideInterval = setInterval(() => {
       if (slideNo >= heroImage.length - 1) {
@@ -84,10 +50,17 @@ export default function HeroSection({ currentPage }) {
     };
   }, [heroImage, slideNo]);
 
+  //scroll function from hero section to movie list
   function handleScroll() {
     if (targetRef.current) {
       targetRef.current.scrollIntoView({ behavior: "smooth" });
     }
+  }
+  function handleSearchInput(value) {
+    localStorage.removeItem("movieList");
+    localStorage.removeItem("pageNo");
+    setPageNo(1);
+    setSearchQuery(value);
   }
 
   return (
@@ -122,7 +95,7 @@ export default function HeroSection({ currentPage }) {
       >
         <input
           placeholder="search for a movie"
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={(e) => handleSearchInput(e.target.value)}
           className="w-[30%] mt-5 p-3 pl-6 rounded-3xl focus:outline-blue-500 text-gray-500"
         />
         <AllMoviesFetched movieList={movieList} />

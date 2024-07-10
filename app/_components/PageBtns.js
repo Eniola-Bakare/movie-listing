@@ -1,8 +1,12 @@
 export default function PageBtns({ setPageNo, pageNo }) {
   function handleNextPage() {
+    localStorage.removeItem("movieList");
+    localStorage.removeItem("pageNo");
     setPageNo((prev) => prev + 1);
   }
   function handlePrevPage() {
+    localStorage.removeItem("movieList");
+    localStorage.removeItem("pageNo");
     setPageNo((prev) => {
       return prev == 1 ? 1 : prev - 1;
     });
