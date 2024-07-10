@@ -65,7 +65,7 @@ export default function HeroSection({ currentPage }) {
 
   return (
     <section className="w-full flex flex-col items-center text-gray-50 m-auto ">
-      <section className=" h-dvh overflow-hidden">
+      <section className=" lg:h-[50dvh] overflow-hidden">
         {/* <div className="absolute top-10 z-10 left-10">
           <NavBar />
         </div> */}
@@ -76,10 +76,10 @@ export default function HeroSection({ currentPage }) {
           <Image
             src={curSlide || heroOne}
             alt="a woman watching a movie"
-            className="w-full relative"
+            className="w-full relative 2xl:object-cover"
           />
-          <div class="absolute top-2/4 left-1/2 hover:scale-50 animate-bounce cursor-pointer">
-            <h4 className="">Scroll down</h4>
+          <div class="absolute w-max top-[15%] left-[35%] sm:top-1/4 md:top-52 lg:top-1/3 2xl:top-1/4 xl:top-1/3 sm:left-[45%] xl:left-1/2 xl:right-1/2 hover:scale-50 animate-bounce cursor-pointer">
+            <h4 className="w-fit">Scroll down</h4>
             <svg className="arrows mb-5">
               <path class="a1" d="M0 0 L30 32 L60 0"></path>
               <path class="a2" d="M0 20 L30 52 L60 20"></path>
@@ -96,7 +96,7 @@ export default function HeroSection({ currentPage }) {
         <input
           placeholder="search for a movie"
           onChange={(e) => handleSearchInput(e.target.value)}
-          className="w-[30%] mt-5 p-3 pl-6 rounded-3xl focus:outline-blue-500 text-gray-500"
+          className=" w-10/12 md:w-[60%] lg:w-[50%] 2xl:w-[35%] mt-5 p-3 pl-6 rounded-3xl focus:outline-blue-500 text-gray-500"
         />
         <AllMoviesFetched movieList={movieList} />
         <PageBtns setPageNo={setPageNo} pageNo={pageNo} />
