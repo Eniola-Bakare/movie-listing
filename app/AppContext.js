@@ -27,9 +27,6 @@ function AppContextProvider({ children }) {
         }
         setPageNo(JSON.parse(localPageNo));
         setMovieList(JSON.parse(localMovie));
-        // localStorage.removeItem("movieList");
-        // localStorage.removeItem("pageNo");
-        return;
       }
 
       let fetched;
