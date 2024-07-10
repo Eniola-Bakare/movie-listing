@@ -1,11 +1,13 @@
 "use client";
 
 import heroPortrait from "/@app/../public/heroPortrait1.jpg";
-import { useEffect, useRef, useState } from "react";
-import AllMoviesFetched from "./AllMoviesFetched";
+import { lazy, Suspense ,useEffect, useRef, useState } from "react";
 import PageBtns from "./PageBtns";
 import { useAppContext } from "../AppContext";
 import HeroHeader from "./HeroHeader";
+import Loading from "../loading";
+import Spinner from "./Spinner";
+const AllMoviesFetched = lazy(() => import("./AllMoviesFetched"));
 
 export default function HeroSection({ currentPage }) {
   // ContextAPI state
@@ -62,6 +64,7 @@ export default function HeroSection({ currentPage }) {
   return (
     <section className="w-full flex flex-col items-center text-gray-50 m-auto ">
       <HeroHeader curSlide={curSlide} handleScroll={handleScroll} />
+
       <section
         ref={targetRef}
         className="w-full h-dvh flex flex-col items-center gap-5 p-5"
@@ -71,7 +74,9 @@ export default function HeroSection({ currentPage }) {
           onChange={(e) => handleSearchInput(e.target.value)}
           className=" w-10/12 md:w-[60%] lg:w-[50%] 2xl:w-[35%] mt-5 p-3 pl-6 rounded-3xl focus:outline-blue-500 text-gray-500"
         />
-        <AllMoviesFetched movieList={movieList} />
+        <Suspense fallback={<Spinner />}>
+          <AllMoviesFetched movieList={movieList} />
+        </Suspense>
         <PageBtns setPageNo={setPageNo} pageNo={pageNo} />
       </section>
     </section>

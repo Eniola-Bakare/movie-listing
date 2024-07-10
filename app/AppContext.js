@@ -41,6 +41,9 @@ function AppContextProvider({ children }) {
           options
         );
       }
+      if (!fetched.ok) {
+        throw new Error(`Error: ${fetched.status}`);
+      }
       let response;
       let movieData;
       try {
