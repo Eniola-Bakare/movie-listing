@@ -1,4 +1,4 @@
-import ContextProvider from "./_components/ContextProvider";
+import ContextProvider from "./_components/_Hooks/ContextProvider";
 import HeroSection from "./_components/HeroSection";
 
 export default async function Home() {

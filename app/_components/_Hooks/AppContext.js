@@ -8,6 +8,7 @@ function AppContextProvider({ children }) {
   const [movieList, setMovieList] = useState([]);
   const [pageNo, setPageNo] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [emptySearch, setemptySearch] = useState(false);
 
   return (
@@ -22,6 +23,8 @@ function AppContextProvider({ children }) {
         setSearchQuery,
         emptySearch,
         setemptySearch,
+        debouncedSearchQuery,
+        setDebouncedSearchQuery,
       }}
     >
       {children}

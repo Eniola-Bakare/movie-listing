@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { useAppContext } from "../AppContext";
+import { useAppContext } from "./_Hooks/AppContext";
 import { Suspense, lazy, useRef } from "react";
 const Image = lazy(() => import("next/image"));
 import Spinner from "./Spinner";

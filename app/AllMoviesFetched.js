@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, lazy, useEffect, useState } from "react";
-import { useAppContext } from "./AppContext";
+import { useAppContext } from "./_components/_Hooks/AppContext";
 const EachMovie = lazy(() => import("./_components/EachMovie"));
 // import EachMovie from "./EachMovie";
 import Spinner from "./_components/Spinner";
@@ -14,6 +14,7 @@ export default function AllMoviesFetched({ movieList }) {
     searchQuery,
     setSearchQuery,
     targetRef,
+    debouncedSearchQuery,
   } = useAppContext();
   const [emptySearch, setEmptySearch] = useState(false);
 
@@ -40,10 +41,10 @@ export default function AllMoviesFetched({ movieList }) {
         return;
       }
       let fetched;
-      if (searchQuery && searchQuery.length >= 2) {
+      if (debouncedSearchQuery) {
         setEmptySearch(false);
         fetched = await fetch(
-          `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&include_adult=false&language=en-US&page=${pageNo}`,
+          `https://api.themoviedb.org/3/search/movie?query=${debouncedSearchQuery}&include_adult=false&language=en-US&page=${pageNo}`,
           options
         );
       } else {
@@ -70,27 +71,27 @@ export default function AllMoviesFetched({ movieList }) {
       }
     }
     fetcherFunc();
-  }, [pageNo, searchQuery, setPageNo, setMovieList, setSearchQuery, targetRef]);
+  }, [pageNo, debouncedSearchQuery, targetRef]);
   return (
     // <Suspense fallback={<Spinner />}>
-      <div
-        className={`all_fetched justify-center sm:w-full 2xl:w-fit grid ${
-          !emptySearch && "grid-cols-2"
-        } lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-y-8 lg:gap-8 2xl:gap-4 sm:p-5`}
-      >
-        {emptySearch ? (
-          <p className="w-full text-justify text-blue-950 font-medium">
-            No such movie is available on the database :( Try adjusting your
-            search words
-          </p>
-        ) : (
-          movieList?.map((eachMovie) => (
-            <Suspense key={eachMovie?.id} fallback={<Spinner />}>
-              <EachMovie eachMovie={eachMovie} />
-            </Suspense>
-          ))
-        )}
-      </div>
+    <div
+      className={`all_fetched justify-center sm:w-full 2xl:w-fit grid ${
+        !emptySearch && "grid-cols-2"
+      } lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-y-8 lg:gap-8 2xl:gap-4 sm:p-5`}
+    >
+      {emptySearch ? (
+        <p className="w-full text-justify text-blue-950 font-medium">
+          No such movie is available on the database :( Try adjusting your
+          search words
+        </p>
+      ) : (
+        movieList?.map((eachMovie) => (
+          <Suspense key={eachMovie?.id} fallback={<Spinner />}>
+            <EachMovie eachMovie={eachMovie} />
+          </Suspense>
+        ))
+      )}
+    </div>
     // </Suspense>
   );
 }

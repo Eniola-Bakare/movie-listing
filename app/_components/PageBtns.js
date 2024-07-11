@@ -1,6 +1,6 @@
 "use client";
 
-import { useAppContext } from "../AppContext";
+import { useAppContext } from "./_Hooks/AppContext";
 
 export default function PageBtns({ setPageNo, pageNo }) {
   const { targetRef } = useAppContext();

@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 const Image = lazy(() => import("next/image"));
-import { useAppContext } from "../AppContext";
+import { useAppContext } from "../_components/_Hooks/AppContext";
 import { Suspense, lazy } from "react";
 import Spinner from "../_components/Spinner";
 

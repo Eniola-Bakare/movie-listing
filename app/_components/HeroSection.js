@@ -3,7 +3,7 @@
 import heroPortrait from "/@app/../public/heroPortrait1.jpg";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import PageBtns from "./PageBtns";
-import { useAppContext } from "../AppContext";
+import { useAppContext } from "./_Hooks/AppContext";
 import HeroHeader from "./HeroHeader";
 import Spinner from "./Spinner";
 const HeroMain = lazy(() => import("./HeroMain"));
