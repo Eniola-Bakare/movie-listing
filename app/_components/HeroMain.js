@@ -3,7 +3,6 @@ import { useAppContext } from "../AppContext";
 import AllMoviesFetched from "../AllMoviesFetched";
 import PageBtns from "./PageBtns";
 import Spinner from "./Spinner";
-import Loading from "../loading";
 
 function HeroMain() {
   const { targetRef, searchQuery, movieList, pageNo, setPageNo } =
