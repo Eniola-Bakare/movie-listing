@@ -27,7 +27,7 @@ export default function EachMovie({ eachMovie }) {
         className="rounded-t-3xl w-[100%] md:w-full object-cover"
       />
 
-      <div className=" w-[100%]  md:w-full lg:w-full h-[110px] sm:h-[150px] p-3 bg-white/50 shadow-lg shadow-cyan-900/20">
+      <div className=" w-[100%]  md:w-full lg:w-full h-[120px] sm:h-[150px] p-3 bg-white/50 shadow-lg shadow-cyan-900/20">
         <span className=" font-medium sm:text-lg text-blue-900 ">Title: </span>
         <p className=" text-wrap text-gray-900 text-xs sm:text-lg font-semibold">
           {eachMovie.title}
