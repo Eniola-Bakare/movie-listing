@@ -1,6 +1,5 @@
 "use client";
 import { useRouter } from "next/navigation";
-import Loading from "../loading";
 import Image from "next/image";
 
 function EachMovDetails() {
