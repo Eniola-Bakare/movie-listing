@@ -1,7 +1,11 @@
 import { useAppContext } from "./_Hooks/AppContext";
 import AllMoviesFetched from "../AllMoviesFetched";
 import PageBtns from "./PageBtns";
+<<<<<<< HEAD
 import { useDebounce } from "./_Hooks/useDebounce";
+=======
+import Spinner from "./Spinner";
+>>>>>>> 2b9751322967bb6dbd816c6738ba178722100e19
 
 function HeroMain() {
   const {
