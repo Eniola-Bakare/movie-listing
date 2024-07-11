@@ -56,9 +56,7 @@ export default function AllMoviesFetched({ movieList }) {
         } else {
           response = await listMovies("discover", params);
         }
-        console.log(response.data);
         movieData = response.data.results;
-        console.log(movieData);
         if (movieData.length <= 0) {
           return setEmptySearch("true");
         }
