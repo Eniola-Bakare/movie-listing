@@ -6,7 +6,7 @@ import PageBtns from "./PageBtns";
 import { useAppContext } from "../AppContext";
 import HeroHeader from "./HeroHeader";
 import Spinner from "./Spinner";
-const AllMoviesFetched = lazy(() => import("./AllMoviesFetched"));
+const HeroMain = lazy(() => import("./HeroMain"));
 
 export default function HeroSection({ currentPage }) {
   // ContextAPI state
@@ -55,32 +55,14 @@ export default function HeroSection({ currentPage }) {
       targetRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }
-  function handleSearchInput(value) {
-    localStorage.removeItem("movieList");
-    localStorage.removeItem("pageNo");
-    setPageNo(1);
-    setSearchQuery(value);
-  }
 
   return (
     <section className="w-full flex flex-col items-center text-gray-50 m-auto ">
       <HeroHeader curSlide={curSlide} handleScroll={handleScroll} />
 
-      <section
-        ref={targetRef}
-        className="w-full h-dvh flex flex-col items-center gap-5 p-5"
-      >
-        <input
-          placeholder="search for a movie"
-          value={searchQuery}
-          onChange={(e) => handleSearchInput(e.target.value)}
-          className=" w-10/12 md:w-[60%] lg:w-[50%] 2xl:w-[35%] mt-5 p-3 pl-6 rounded-3xl focus:outline-blue-500 text-gray-500"
-        />
-        <Suspense fallback={<Spinner />}>
-          <AllMoviesFetched movieList={movieList} />
-        </Suspense>
-        <PageBtns setPageNo={setPageNo} pageNo={pageNo} />
-      </section>
+      <Suspense fallback={<Spinner />}>
+        <HeroMain />
+      </Suspense>
     </section>
   );
 }

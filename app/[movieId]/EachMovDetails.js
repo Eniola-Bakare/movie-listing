@@ -1,7 +1,9 @@
 "use client";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
+const Image = lazy(() => import("next/image"));
 import { useAppContext } from "../AppContext";
+import { Suspense, lazy } from "react";
+import Spinner from "../_components/Spinner";
 
 function EachMovDetails() {
   const { setMovieList, movieList, setPageNo, searchQuery, setSearchQuery } =
@@ -33,13 +35,15 @@ function EachMovDetails() {
       </button>
 
       <div className="w-fit selected_movie_details flex flex-col md:flex-row justify-start md:items-center gap-8 lg:gap-x-10">
-        <Image
-          alt="movie poster"
-          width={500}
-          height={100}
-          src={`https://image.tmdb.org/t/p/w500${selectedMovie?.poster_path}`}
-          className="rounded-lg w-4/4 lg:w-[20%]"
-        />
+        <Suspense fallback={<Spinner />}>
+          <Image
+            alt="movie poster"
+            width={500}
+            height={100}
+            src={`https://image.tmdb.org/t/p/w500${selectedMovie?.poster_path}`}
+            className="rounded-lg w-4/4 lg:w-[20%]"
+          />
+        </Suspense>
 
         <div className="s_text_detail w-[95%] lg:w-[50%] flex flex-col items-start text-justify gap-4">
           <h1 className="text-blue-900">{selectedMovie.title}</h1>
