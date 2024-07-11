@@ -39,6 +39,7 @@ export default function AllMoviesFetched({ movieList }) {
       }
       let fetched;
       if (searchQuery && searchQuery.length >= 2) {
+        setEmptySearch(false);
         fetched = await fetch(
           `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&include_adult=false&language=en-US&page=${pageNo}`,
           options
