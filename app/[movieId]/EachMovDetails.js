@@ -34,7 +34,7 @@ function EachMovDetails() {
           width={500}
           height={100}
           src={`https://image.tmdb.org/t/p/w500${selectedMovie?.poster_path}`}
-          className="rounded-lg w-2/4 sm:w-2/5 lg:w-[20%]"
+          className="rounded-lg w-4/4 sm:w-2/5 lg:w-[20%]"
         />
 
         <div className="s_text_detail w-[95%] lg:w-[50%] flex flex-col items-start text-justify gap-4">
