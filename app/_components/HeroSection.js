@@ -35,10 +35,6 @@ export default function HeroSection({ currentPage }) {
         setCurSlide(heroImage[slideNo + 1]);
         setSlideNo((prev) => prev + 1);
       }
-      // else if (slideNo > heroImage.length) {
-      //   setCurSlide(heroImage[slideNo++]);
-      //   setSlideNo((prev) => prev + 1);
-      // }
     }, 3000);
 
     //
@@ -74,9 +70,9 @@ export default function HeroSection({ currentPage }) {
           onChange={(e) => handleSearchInput(e.target.value)}
           className=" w-10/12 md:w-[60%] lg:w-[50%] 2xl:w-[35%] mt-5 p-3 pl-6 rounded-3xl focus:outline-blue-500 text-gray-500"
         />
-        <Suspense fallback={<Spinner />}>
+        {/* <Suspense fallback={<Spinner />}> */}
           <AllMoviesFetched movieList={movieList} />
-        </Suspense>
+        {/* </Suspense> */}
         <PageBtns setPageNo={setPageNo} pageNo={pageNo} />
       </section>
     </section>
