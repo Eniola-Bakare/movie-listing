@@ -48,7 +48,7 @@ function EachMovDetails() {
             {selectedMovie.release_date}
           </p>
           <button
-            className="inline-block ease-in-out transition-colors bg-blue-950 hover:bg-blue-800 active:bg-blue-950 text-white font-semibold px-6 py-3 text-lg"
+            className="inline-block ease-in-out transition-colors bg-blue-950 hover:bg-blue-800 active:bg-blue-950 text-white font-semibold px-6 py-3 mb-6 lg:mb-0 text-lg"
             onClick={() => alert("Streaming: coming soon")}
           >
             Watch here
