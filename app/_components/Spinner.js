@@ -1,9 +1,10 @@
 function Spinner() {
   return (
-    <div className="h-[80%]">
-      <div class="lds-ripple ">
-        <div></div>
-        <div></div>
+    <div className="">
+      <div class="lds-facebook">
+        <div className="bg-blue-950"></div>
+        <div className="bg-blue-950"></div>
+        <div className="bg-blue-950"></div>
       </div>
     </div>
   );
