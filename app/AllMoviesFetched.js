@@ -5,6 +5,7 @@ import { useAppContext } from "./_components/_Hooks/AppContext";
 const EachMovie = lazy(() => import("./_components/EachMovie"));
 // import EachMovie from "./EachMovie";
 import Spinner from "./_components/Spinner";
+import { listMovies } from "./_models/moviesModel";
 
 export default function AllMoviesFetched({ movieList }) {
   const {
@@ -23,8 +24,8 @@ export default function AllMoviesFetched({ movieList }) {
       method: "GET",
       headers: {
         accept: "application/json",
-        Authorization:
-          "Bearer " + process.env.NEXT_PUBLIC_API_Key       },
+        Authorization: "Bearer " + process.env.NEXT_PUBLIC_API_Key,
+      },
     };
     async function fetcherFunc() {
       const localMovie = localStorage.getItem("movieList");
@@ -39,27 +40,24 @@ export default function AllMoviesFetched({ movieList }) {
         setSearchQuery(JSON.parse(localSearchQuery));
         return;
       }
-      let fetched;
-      if (debouncedSearchQuery) {
-        setEmptySearch(false);
-        fetched = await fetch(
-          `https://api.themoviedb.org/3/search/movie?query=${debouncedSearchQuery}&include_adult=false&language=en-US&page=${pageNo}`,
-          options
-        );
-      } else {
-        fetched = await fetch(
-          `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${pageNo}&sort_by=popularity.desc`,
-          options
-        );
-      }
-      if (!fetched.ok) {
-        throw new Error(`Error: ${fetched.status}`);
-      }
-      let response;
+
+      const params = {
+        query: debouncedSearchQuery,
+        include_adult: false,
+        language: "en-US",
+        page: pageNo,
+      };
       let movieData;
       try {
-        response = await fetched.json();
-        movieData = response.results;
+        let response = null;
+        if (debouncedSearchQuery) {
+          setEmptySearch(false);
+          response = await listMovies("search", params);
+        } else {
+          response = await listMovies("discover", params);
+        }
+        console.log(response.data);
+        movieData = response.data.results;
         console.log(movieData);
         if (movieData.length <= 0) {
           return setEmptySearch("true");
@@ -84,6 +82,7 @@ export default function AllMoviesFetched({ movieList }) {
           search words
         </p>
       ) : (
+        Array.isArray(movieList) &&
         movieList?.map((eachMovie) => (
           <Suspense key={eachMovie?.id} fallback={<Spinner />}>
             <EachMovie eachMovie={eachMovie} />
