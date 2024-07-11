@@ -5,7 +5,6 @@ import { lazy, Suspense ,useEffect, useRef, useState } from "react";
 import PageBtns from "./PageBtns";
 import { useAppContext } from "../AppContext";
 import HeroHeader from "./HeroHeader";
-import Loading from "../loading";
 import Spinner from "./Spinner";
 const AllMoviesFetched = lazy(() => import("./AllMoviesFetched"));
 
