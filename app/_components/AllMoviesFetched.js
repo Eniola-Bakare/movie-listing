@@ -5,8 +5,14 @@ import { useAppContext } from "../AppContext";
 import EachMovie from "./EachMovie";
 
 export default function AllMoviesFetched({ movieList }) {
-  const { pageNo, setMovieList, setPageNo, searchQuery, targetRef } =
-    useAppContext();
+  const {
+    pageNo,
+    setMovieList,
+    setPageNo,
+    searchQuery,
+    setSearchQuery,
+    targetRef,
+  } = useAppContext();
 
   useEffect(() => {
     const options = {
@@ -20,14 +26,16 @@ export default function AllMoviesFetched({ movieList }) {
     async function fetcherFunc() {
       const localMovie = localStorage.getItem("movieList");
       const localPageNo = localStorage.getItem("pageNo");
+      const localSearchQuery = localStorage.getItem("searchQuery");
       if (localMovie && localPageNo) {
         if (targetRef.current) {
           targetRef.current.scrollIntoView({ behavior: "smooth" });
         }
         setPageNo(JSON.parse(localPageNo));
         setMovieList(JSON.parse(localMovie));
+        setSearchQuery(JSON.parse(localSearchQuery));
+        return;
       }
-
       let fetched;
       if (searchQuery && searchQuery.length >= 2) {
         fetched = await fetch(
@@ -55,7 +63,7 @@ export default function AllMoviesFetched({ movieList }) {
       }
     }
     fetcherFunc();
-  }, [pageNo, searchQuery, setPageNo, setMovieList, targetRef]);
+  }, [pageNo, searchQuery, setPageNo, setMovieList, setSearchQuery, targetRef]);
   return (
     <div className="all_fetched justify-center sm:w-full 2xl:w-fit grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-y-8 lg:gap-8 2xl:gap-4 sm:p-5">
       {movieList?.map((eachMovie) => (

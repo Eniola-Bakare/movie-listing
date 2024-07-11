@@ -1,7 +1,7 @@
 "use client";
 
 import heroPortrait from "/@app/../public/heroPortrait1.jpg";
-import { lazy, Suspense ,useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import PageBtns from "./PageBtns";
 import { useAppContext } from "../AppContext";
 import HeroHeader from "./HeroHeader";
@@ -10,8 +10,14 @@ const AllMoviesFetched = lazy(() => import("./AllMoviesFetched"));
 
 export default function HeroSection({ currentPage }) {
   // ContextAPI state
-  const { pageNo, movieList, setSearchQuery, targetRef, setPageNo } =
-    useAppContext();
+  const {
+    pageNo,
+    movieList,
+    setSearchQuery,
+    searchQuery,
+    targetRef,
+    setPageNo,
+  } = useAppContext();
 
   // Local state
   const [heroImage, setHeroImage] = useState([
@@ -66,6 +72,7 @@ export default function HeroSection({ currentPage }) {
       >
         <input
           placeholder="search for a movie"
+          value={searchQuery}
           onChange={(e) => handleSearchInput(e.target.value)}
           className=" w-10/12 md:w-[60%] lg:w-[50%] 2xl:w-[35%] mt-5 p-3 pl-6 rounded-3xl focus:outline-blue-500 text-gray-500"
         />

@@ -5,11 +5,12 @@ import { useRef } from "react";
 
 export default function EachMovie({ eachMovie }) {
   const router = useRouter();
-  const { movieList, pageNo } = useAppContext();
+  const { movieList, pageNo, searchQuery } = useAppContext();
 
   const handleEachMovie = () => {
     localStorage.setItem("movieList", JSON.stringify(movieList));
     localStorage.setItem("pageNo", JSON.stringify(pageNo));
+    localStorage.setItem("searchQuery", JSON.stringify(searchQuery));
     localStorage.setItem("selectedMovie", JSON.stringify(eachMovie));
     router.push(`/${eachMovie?.id}`);
   };

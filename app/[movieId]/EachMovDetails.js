@@ -1,14 +1,17 @@
 "use client";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useAppContext } from "../AppContext";
 
 function EachMovDetails() {
+  const { setMovieList, movieList, setPageNo, searchQuery, setSearchQuery } =
+    useAppContext();
   const router = useRouter();
   const selectedMovie = JSON.parse(localStorage.getItem("selectedMovie"));
 
+  console.log(searchQuery);
   const handleBack = () => {
     router.back();
-    localStorage.removeItem("selectedMovie");
   };
 
   return (
