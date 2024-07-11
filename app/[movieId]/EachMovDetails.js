@@ -11,6 +11,7 @@ function EachMovDetails() {
 
   console.log(searchQuery);
   const handleBack = () => {
+    localStorage.removeItem("selectedMovie");
     router.back();
   };
 
