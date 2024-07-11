@@ -47,6 +47,12 @@ function EachMovDetails() {
             <span className="font-semibold"> Release date:</span>{" "}
             {selectedMovie.release_date}
           </p>
+          <button
+            className="inline-block ease-in-out transition-colors bg-blue-950 hover:bg-blue-800 active:bg-blue-950 text-white font-semibold px-6 py-3 text-lg"
+            onClick={() => alert("Streaming: coming soon")}
+          >
+            Watch here
+          </button>
         </div>
       </div>
     </section>
