@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppContext } from "../AppContext";
 import EachMovie from "./EachMovie";
 
@@ -13,6 +13,7 @@ export default function AllMoviesFetched({ movieList }) {
     setSearchQuery,
     targetRef,
   } = useAppContext();
+  const [emptySearch, setEmptySearch] = useState(false);
 
   useEffect(() => {
     const options = {
@@ -57,6 +58,9 @@ export default function AllMoviesFetched({ movieList }) {
         response = await fetched.json();
         movieData = response.results;
         console.log(movieData);
+        if (movieData.length <= 0) {
+          return setEmptySearch("true");
+        }
         return setMovieList(movieData);
       } catch (error) {
         throw new Error(`Error: ${error.message}`);
@@ -65,10 +69,21 @@ export default function AllMoviesFetched({ movieList }) {
     fetcherFunc();
   }, [pageNo, searchQuery, setPageNo, setMovieList, setSearchQuery, targetRef]);
   return (
-    <div className="all_fetched justify-center sm:w-full 2xl:w-fit grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-y-8 lg:gap-8 2xl:gap-4 sm:p-5">
-      {movieList?.map((eachMovie) => (
-        <EachMovie key={eachMovie?.id} eachMovie={eachMovie} />
-      ))}
+    <div
+      className={`all_fetched justify-center sm:w-full 2xl:w-fit grid ${
+        !emptySearch && "grid-cols-2"
+      } lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-y-8 lg:gap-8 2xl:gap-4 sm:p-5`}
+    >
+      {emptySearch ? (
+        <p className="w-full text-justify text-blue-950 font-medium">
+          No such movie is available on the database :( Try adjusting your
+          search words
+        </p>
+      ) : (
+        movieList?.map((eachMovie) => (
+          <EachMovie key={eachMovie?.id} eachMovie={eachMovie} />
+        ))
+      )}
     </div>
   );
 }
